@@ -3,12 +3,20 @@ import { makeDOMDriver } from '@cycle/dom';
 import xs from 'xstream';
 
 // Model-View-Intent (MVI)
-// is a simple pattern to separate concerns of the main() function
-// - Intent: Interprets user actions
-// - Model: Manages state
-// - View: Visually represents the state
+// Notes & example from https://cycle.js.org/model-view-intent.html
+
+// Intent: Observes and interprets user actions
+// Model: Observes the intent, managing state
+// View: Observes the model and represents its state
+
 // DOM source -> action streams -> state stream -> stream of virtual DOM nodes
-//          INTENT                     MODEL                  VIEW
+//               INTENT            MODEL           VIEW
+//               actions           state           virtual DOM
+
+// main() defines how DOM events create actions
+// which flow to the model, transforming state
+// represented in the view, which updates the DOM
+// The cycle is composed as three functions: intent, model, and view
 
 function main(sources) {
   const actions = intent(sources.DOM);
@@ -30,16 +38,6 @@ function intent(domSource) {
   };
 }
 
-function model(actions) {
-  const weight$ = actions.changeWeight$.startWith(100);
-  const height$ = actions.changeHeight$.startWith(150);
-  return xs.combine(weight$, height$).map(([weight, height]) => ({
-    weight,
-    height,
-    bmi: calcBMI(weight, height)
-  }));
-}
-
 function view(state$) {
   return state$.map(({ weight, height, bmi }) => (
     <div>
@@ -59,6 +57,16 @@ function BMISlider(title, label, value, min, max) {
       {` ${label} `}
     </div>
   );
+}
+
+function model(actions) {
+  const weight$ = actions.changeWeight$.startWith(100);
+  const height$ = actions.changeHeight$.startWith(150);
+  return xs.combine(weight$, height$).map(([weight, height]) => ({
+    weight,
+    height,
+    bmi: calcBMI(weight, height)
+  }));
 }
 
 function calcBMI(weight, height) {
