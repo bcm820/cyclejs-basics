@@ -1,4 +1,4 @@
 import { run } from '@cycle/run';
-import main, { drivers } from './00';
+import main, { drivers } from './BMICalculatorExample';
 
 run(main, drivers);
