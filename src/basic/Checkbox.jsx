@@ -1,6 +1,6 @@
 import { makeDOMDriver } from '@cycle/dom';
 
-const ToggleCheckbox = sources => {
+const Checkbox = sources => {
   return {
     DOM: sources.DOM.select('input')
       .events('change')
@@ -18,4 +18,4 @@ export const drivers = {
   DOM: makeDOMDriver('#root')
 };
 
-export default ToggleCheckbox;
+export default Checkbox;
