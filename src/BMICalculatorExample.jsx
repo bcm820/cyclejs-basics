@@ -10,6 +10,13 @@ import xs from 'xstream';
 // DOM source -> action streams -> state stream -> stream of virtual DOM nodes
 //          INTENT                     MODEL                  VIEW
 
+function main(sources) {
+  const actions = intent(sources.DOM);
+  const state$ = model(actions);
+  const vdom$ = view(state$);
+  return { DOM: view(model(intent(sources.DOM))) };
+}
+
 function intent(domSource) {
   return {
     changeWeight$: domSource
@@ -41,13 +48,6 @@ function view(state$) {
       <h2>BMI: {bmi}</h2>
     </div>
   ));
-}
-
-function main(sources) {
-  const actions = intent(sources.DOM);
-  const state$ = model(actions);
-  const vdom$ = view(state$);
-  return { DOM: view(model(intent(sources.DOM))) };
 }
 
 function BMISlider(title, label, value, min, max) {
