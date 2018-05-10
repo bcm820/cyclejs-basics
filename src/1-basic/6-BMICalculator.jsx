@@ -1,8 +1,8 @@
+import { run } from '@cycle/run';
 import { makeDOMDriver } from '@cycle/dom';
-
 import xs from 'xstream';
 
-function BMICalculator(sources) {
+function main(sources) {
   const weight$ = sources.DOM.select('#weight')
     .events('input')
     .map(event => event.target.value)
@@ -36,8 +36,8 @@ function BMICalculator(sources) {
   };
 }
 
-export const drivers = {
-  DOM: makeDOMDriver('#root')
+export default () => {
+  run(main, {
+    DOM: makeDOMDriver('#root')
+  });
 };
-
-export default BMICalculator;
