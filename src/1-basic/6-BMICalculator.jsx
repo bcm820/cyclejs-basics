@@ -2,6 +2,10 @@ import { run } from '@cycle/run';
 import { makeDOMDriver } from '@cycle/dom';
 import xs from 'xstream';
 
+// This main function has become too large,
+// being concerned with both logic and effects
+// and showing no separation of concerns.
+// Refer to ../example/1-model-view-intent.jsx
 function main(sources) {
   const weight$ = sources.DOM.select('#weight')
     .events('input')

@@ -1,6 +1,5 @@
 import { run } from '@cycle/run';
 import { makeDOMDriver } from '@cycle/dom';
-
 import xs from 'xstream';
 
 // Increment/Decrement Counter

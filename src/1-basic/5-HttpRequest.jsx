@@ -7,35 +7,27 @@ import { makeHTTPDriver } from '@cycle/http';
 function main(sources) {
   // A DOM driver's click event is mapped into a stream
   // returning a randomly generated URL string
-  // An object may also be passed, with more configs,
-  // i.e. defining a `category` key to give to select() below
   const request$ = sources.DOM.select('#request')
     .events('click')
     .map(() => {
       const id = Math.round(Math.random() * 9) + 1;
       return `https://jsonplaceholder.typicode.com/users/${id}`;
     });
+  // An object may also be passed with more configs
+  // i.e. defining a `category` key to give to select() below
 
   // The HTTP driver observes the DOM source, receives the URL,
-  // receives and returns a repsonse metastream (stream of streams)
-  const httpMetastream$$ = sources.HTTP.select();
+  // sends the request and maps a response metastream (stream of streams)
+  const responseMetastream$$ = sources.HTTP.select();
 
-  // When the httpMetastream$$ is returned, we flatten it to get
-  // the request body stream, which we store in response$
-  const response$ = httpMetastream$$
+  // When the responseMetastream$$ is returned,
+  // flatten it into one stream to get the response body
+  const response$ = responseMetastream$$
     .flatten()
     .map(res => res.body)
     .startWith(null);
 
-  // For event handling, we add a listener to check
-  // any statuses or errors received by the response$ stream
-  response$.addListener({
-    next: httpResponse => console.log(httpResponse.status),
-    error: err => console.log(err),
-    complete: () => {}
-  });
-
-  // We map new virtual DOM nodes with the response object
+  // Map new virtual DOM nodes with the response body
   const vdom$ = response$.map(user => (
     <div>
       <button id="request">Get random user</button>
