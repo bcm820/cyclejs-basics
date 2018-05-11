@@ -21,9 +21,9 @@ The cycle is composed as three functions: intent, model, and view
 */
 
 function main(sources) {
-  const actions = intent(sources.DOM);
-  const state$ = model(actions);
-  const vdom$ = view(state$);
+  // const actions = intent(sources.DOM);
+  // const state$ = model(actions);
+  // const vdom$ = view(state$);
   return { DOM: view(model(intent(sources.DOM))) };
 }
 
