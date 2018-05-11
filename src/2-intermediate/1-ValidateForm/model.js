@@ -16,20 +16,27 @@ const validateInfo = ([user, pw]) => {
 
 const LOWER_LIMIT = 1;
 const UPPER_LIMIT = 10;
-const USER_LENGTH = 6;
-const PW_LENGTH = 7;
+const MIN_LENGTH = 5;
 
 const getResult = (input, label) => {
-  if (input.length <= LOWER_LIMIT) return `Pick a ${label}.`;
-  else if (input.length <= USER_LENGTH)
-    return renderMessage(label, 'too short', 'red');
+  if (input.length <= LOWER_LIMIT)
+    return {
+      valid: 'pending',
+      message: `Choose a ${label}`
+    };
+  else if (input.length <= MIN_LENGTH)
+    return {
+      valid: false,
+      message: `Your ${label} is too short!`
+    };
   else if (input.length >= UPPER_LIMIT)
-    return renderMessage(label, 'too long', 'red');
-  else return renderMessage(label, 'works', 'green');
+    return {
+      valid: false,
+      message: `Your ${label} is too long!`
+    };
+  else
+    return {
+      valid: true,
+      message: `Your ${label} is valid!`
+    };
 };
-
-const renderMessage = (value, desc, color) => (
-  <span style={{ color, fontWeight: 600 }}>
-    Your {value} is {desc}!
-  </span>
-);
