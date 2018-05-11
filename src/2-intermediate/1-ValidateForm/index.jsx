@@ -1,0 +1,15 @@
+import { run } from '@cycle/run';
+import { makeDOMDriver } from '@cycle/dom';
+import { model } from './model';
+import { view } from './view';
+import { intent } from './intent';
+
+function main(sources) {
+  return { DOM: view(model(intent(sources.DOM))) };
+}
+
+export default () => {
+  run(main, {
+    DOM: makeDOMDriver('#root')
+  });
+};
