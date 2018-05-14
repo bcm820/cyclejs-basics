@@ -21,7 +21,7 @@ const MIN_LENGTH = 5;
 const getResult = (input, label) => {
   if (input.length <= LOWER_LIMIT)
     return {
-      valid: 'pending',
+      valid: null,
       message: `Choose a ${label}`
     };
   else if (input.length <= MIN_LENGTH)

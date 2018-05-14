@@ -16,5 +16,6 @@ const renderInput = (label, id, result) => (
 );
 
 const renderStyle = valid => ({
-  color: valid === 'pending' ? 'black' : !valid ? 'red' : 'green'
+  color: valid === null ? 'black' : !valid ? 'red' : 'green',
+  fontWeight: 600
 });
