@@ -1,3 +1,6 @@
+import { button, div } from '@cycle/dom';
+import xs from 'xstream';
+
 export function view(items$) {
   const addButtons = div('.addButtons', [
     button('.add-one-btn', 'Add New Item'),
