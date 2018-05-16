@@ -1,10 +1,4 @@
 /**
- * FACTORIES & OPERATORS
- * Docs: https://github.com/staltz/xstream
- * Extras: https://github.com/staltz/xstream/blob/master/EXTRA_DOCS.md
- */
-
-/**
  * FREQUENLTY USED FACTORIES
  * of(...args)                    Creates a Stream that immediately emits args given
  * from(input)                    Creates a Stream from an Array, Promise, or Observable

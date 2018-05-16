@@ -25,6 +25,12 @@ When called, an operator creates and returns another stream.
 When an input stream broadcasts an event, it is passed through operator logic
 and then the output stream can broadcast its on event based on the original event. */
 
+/**
+ * FACTORIES & OPERATORS
+ * Docs: https://github.com/staltz/xstream
+ * Extras: https://github.com/staltz/xstream/blob/master/EXTRA_DOCS.md
+ */
+
 /* LISTENER
 An object with 1-3 functions attached: next(value), error(err), and complete().
 Many listeners can be attached to a stream to receive its broadcasted values. */
